@@ -15,18 +15,11 @@
           03 WS-MATERIA         PIC X(30) VALUE SPACE.
           03 WS-STATUS          PIC X(10) VALUE SPACE.
           03 WS-NOTA-1          PIC 9(2) VALUE ZERO.
-          03 FILLER             PIC X(1).
           03 WS-NOTA-2          PIC 9(2) VALUE ZERO.
-          03 FILLER             PIC X(1).
           03 WS-NOTA-3          PIC 9(2) VALUE ZERO.
-          03 FILLER             PIC X(1).
           03 WS-NOTA-4          PIC 9(2) VALUE ZERO.
-          03 FILLER             PIC X(1).
           03 WS-MEDIA           PIC 9(2) VALUE ZERO.
-
        77 WS-CONTINUAR          PIC X(1) VALUE ZERO.
-
-
 
        PROCEDURE DIVISION.
        MAIN-PROCEDURE.
@@ -39,7 +32,8 @@
         PERFORM VERIFICAR-LOOP THRU VERIFICAR-LOOP-END.
         LOOPZERA-END.
 
-        PERFORM LOOPZERA THRU LOOPZERA-END UNTIL WS-CONTINUAR = 'N'.
+        PERFORM LOOPZERA THRU LOOPZERA-END
+        UNTIL WS-CONTINUAR = 'N'.
 
         STOP RUN.
 
@@ -76,12 +70,13 @@
        ELSE
            MOVE 'REPROVADO' TO WS-STATUS
        END-IF.
-
         VERIFICAR-NOTA-END.
 
         VERIFICAR-LOOP.
             DISPLAY 'QUER CONTINUAR: (S-N)'
             ACCEPT WS-CONTINUAR.
+            MOVE FUNCTION UPPER-CASE(WS-CONTINUAR)
+            TO WS-CONTINUAR.
 
             IF WS-CONTINUAR = 'N' THEN
                 STOP RUN
